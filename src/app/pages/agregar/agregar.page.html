@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{lista.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nuevo item</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="tareaDesc"
+        (keyup.enter)="agregarItem()"
+      ></ion-input>
+    </ion-item>
+
+    <ion-list-header *ngIf="!(lista.tareas.length===0)">
+      <ion-label>Tareas por hacer</ion-label>
+    </ion-list-header>
+
+    <ion-item-sliding
+      *ngFor="let tarea of lista.tareas; let i = index"
+      class="animated fadeInDown"
+    >
+      <ion-item>
+        <ion-checkbox
+          [(ngModel)]="tarea.completado"
+          (ionChange)="cambioCheck(tarea)"
+        ></ion-checkbox>
+        <ion-label>{{tarea.desc}}</ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="borrar(i)">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
